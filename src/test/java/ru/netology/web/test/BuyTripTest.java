@@ -16,7 +16,8 @@ class BuyTripTest {
         SelenideLogger.addListener("allure", new AllureSelenide());
     }
 
-    @AfterAll static void tearDownAll() {
+    @AfterAll
+    static void tearDownAll() {
         SelenideLogger.removeListener("allure");
     }
 
@@ -29,11 +30,67 @@ class BuyTripTest {
     @Test
     void buyTripByApprovedCardAndValidData() {
         String approvedCardNumber = DataHelper.getApprovedCardNumber();
+        String cardMonthValid = DataHelper.getCardMonthValid();
+        String cardYearValid = DataHelper.getCardYearValid();
+        String cardOwner = DataHelper.generateName();
+        String cardCvc = DataHelper.getCardCVC();
 
         BasePage basePage = new BasePage();
-        basePage.clickBuyBtn();
-        System.out.println(approvedCardNumber); // Для дебага
+        basePage
+                .clickBuyBtn()
+                .fillCardInfo(approvedCardNumber, cardMonthValid, cardYearValid, cardOwner, cardCvc)
+                .clickContinueBtn()
+                .checkSuccessResult();
+    }
 
+    @Test
+    void buyTripByDeclinedCardAndValidData() {
+        String declinedCardNumber = DataHelper.getDeclinedCardNumber();
+        String cardMonthValid = DataHelper.getCardMonthValid();
+        String cardYearValid = DataHelper.getCardYearValid();
+        String cardOwner = DataHelper.generateName();
+        String cardCvc = DataHelper.getCardCVC();
+
+        BasePage basePage = new BasePage();
+        basePage
+                .clickBuyBtn()
+                .fillCardInfo(declinedCardNumber, cardMonthValid, cardYearValid, cardOwner, cardCvc)
+                .clickContinueBtn()
+                .checkDeclinedResult();
+    }
+
+    @Test
+    void buyTripByApprovedCardAndInvalidMonthLarge() {
+        // Нерпавильный месяц (>12)
+        String approvedCardNumber = DataHelper.getApprovedCardNumber();
+        String cardMonthInvalid = DataHelper.getCardMonthInvalidLarge();
+        String cardYearValid = DataHelper.getCardYearValid();
+        String cardOwner = DataHelper.generateName();
+        String cardCvc = DataHelper.getCardCVC();
+
+        BasePage basePage = new BasePage();
+        basePage
+                .clickBuyBtn()
+                .fillCardInfo(approvedCardNumber, cardMonthInvalid, cardYearValid, cardOwner, cardCvc)
+                .clickContinueBtn()
+                .checkWrongMonthNotificationLarge();
+    }
+
+    @Test
+    void buyTripByApprovedCardAndInvalidMonthSmall() {
+        // Нерпавильный месяц (1 цифра)
+        String approvedCardNumber = DataHelper.getApprovedCardNumber();
+        String cardMonthInvalid = DataHelper.getCardMonthInvalidSmall();
+        String cardYearValid = DataHelper.getCardYearValid();
+        String cardOwner = DataHelper.generateName();
+        String cardCvc = DataHelper.getCardCVC();
+
+        BasePage basePage = new BasePage();
+        basePage
+                .clickBuyBtn()
+                .fillCardInfo(approvedCardNumber, cardMonthInvalid, cardYearValid, cardOwner, cardCvc)
+                .clickContinueBtn()
+                .checkWrongMonthNotificationSmall();
     }
 
 }

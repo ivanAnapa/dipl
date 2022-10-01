@@ -196,8 +196,14 @@ public class BasePage {
     }
 
     // Сообщение о неправильном вводе CVC (1-2 цифры вместо 3)
-    public BasePage checkWrongCvcNotification() {
+    public BasePage checkWrongFormatCvcNotification() {
         wrongCvcNotification.shouldBe(text("Неверный формат"), visible);
+        return this;
+    }
+
+    // Сообщение о незаполненном CVC
+    public BasePage checkUnfilledCvcNotification() {
+        wrongCvcNotification.shouldBe(text("Поле обязательно для заполнения"), visible);
         return this;
     }
 

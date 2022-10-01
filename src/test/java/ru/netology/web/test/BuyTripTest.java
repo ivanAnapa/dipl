@@ -136,6 +136,7 @@ class BuyTripTest {
                 .clickContinueBtn()
                 .checkWrongCardNotification();
     }
+
     @Test
     void buyWithCredit_checkCardNotification_shortValue() {
         // 9. "Купить в кредит": Проверка ошибки валидации при неполном вводе номера карты (15 цифр)
@@ -168,6 +169,7 @@ class BuyTripTest {
                 .clickContinueBtn()
                 .checkUnfilledCardNotification();
     }
+
     @Test
     void buyWithCredit_checkCardNotification_unfilledValue() {
         // 11. "Купить в кредит": Проверка ошибки валидации при незаполнении номера карты
@@ -199,6 +201,7 @@ class BuyTripTest {
                 .clickContinueBtn()
                 .checkWrongMonthNotification();
     }
+
     @Test
     void buyWithCredit_checkInvalidMonthNotification_value00() {
         // 13. "Купить в кредит": Проверка ошибки валидации при вводе месяца "00"
@@ -231,6 +234,7 @@ class BuyTripTest {
                 .clickContinueBtn()
                 .checkWrongMonthNotification();
     }
+
     @Test
     void buyWithCredit_checkInvalidMonthNotification_valueMoreThen12() {
         // 15. "Купить в кредит": Проверка ошибки валидации при вводе месяца ">12"
@@ -264,6 +268,7 @@ class BuyTripTest {
                 .clickContinueBtn()
                 .checkWrongFormatMonthNotification();
     }
+
     @Test
     void buyWithCredit_checkInvalidMonthNotification_valueOneChar() {
         // 17. "Купить в кредит": Проверка ошибки валидации при вводе месяца "1 цифра"
@@ -297,6 +302,7 @@ class BuyTripTest {
                 .clickContinueBtn()
                 .checkWrongYearNotification();
     }
+
     @Test
     void buyWithCredit_checkInvalidYearNotification_currentYearPlus6() {
         // 19. "Купить в кредит": Проверка ошибки валидации при вводе года "текущий + 6 лет"
@@ -330,6 +336,7 @@ class BuyTripTest {
                 .clickContinueBtn()
                 .checkWrongYearNotificationOld();
     }
+
     @Test
     void buyWithCredit_checkInvalidYearNotification_currentYearMinus1() {
         // 21. "Купить в кредит": Проверка ошибки валидации при вводе года "текущий - 1 год"
@@ -369,6 +376,7 @@ class BuyTripTest {
                 .clickContinueBtn()
                 .checkWrongMonthNotification();
     }
+
     @Test
     void buyWithCredit_checkInvalidMonthNotification_currentMonthMinus1() {
         // 23. "Купить в кредит": Проверка ошибки валидации при вводе прошлого месяца текущего года
@@ -524,35 +532,166 @@ class BuyTripTest {
                 .checkWrongFormatOwnerNotification();
     }
 
-    /**
-     // ToDo: Добавить проверку при вводе имени без пробела
+    @Test
+    void buy_checkInvalidNameNotification_unfilledOwner() {
+        // 32. "Купить": Проверка ошибки валидации при незаполнениии имени владельца крты
+        String approvedCardNumber = DataHelper.getApprovedCardNumber();
+        String cardMonthValid = DataHelper.getCurrentMonth();
+        String cardYearValid = DataHelper.getCurrYearPlus(1);
+        String cardCvc = DataHelper.getCardCvcValid();
 
-     32. Проверка ошибки валидации при незаполнениии имени владельца крты для типа "Купить"</br>
-     Карта - 4444 4444 4444 4441; Месяц - 01; Год - 25; Владелец - не_заполнять; CVC -  913</br>
-     ОР: Под полем ввода месяца появилось сообщение о необходимости заполнения имени</br>
-     33. Проверка ошибки валидации при незаполнениии имени владельца крты для типа "Купить в кредит"</br>
-     Карта - 4444 4444 4444 4441; Месяц - 01; Год - 25; Владелец - не_заполнять; CVC -  913</br>
-     ОР: Под полем ввода месяца появилось сообщение о необходимости заполнения имени</br>
-     34. Проверка ошибки валидации при вводе 1 цифры в поле CVC/CVV для типа "Купить"</br>
-     Карта - 4444 4444 4444 4441; Месяц - 01; Год - 25; Владелец - Bill Gates; CVC -  1</br>
-     ОР: Под полем ввода месяца появилось сообщение о неверном формате CVC</br>
-     35. Проверка ошибки валидации при вводе 1 цифры в поле CVC/CVV для типа "Купить в кредит"</br>
-     Карта - 4444 4444 4444 4441; Месяц - 01; Год - 25; Владелец - Bill Gates; CVC -  2</br>
-     ОР: Под полем ввода месяца появилось сообщение о неверном формате CVC</br>
-     36. Проверка ошибки валидации при незаполнениии поля CVC/CVV для типа "Купить"</br>
-     Карта - 4444 4444 4444 4441; Месяц - 01; Год - 25; Владелец - Bill Gates; CVC -  не_заполнять</br>
-     ОР: Под полем ввода месяца появилось сообщение о необходимости заполнения CVC</br>
-     37. Проверка ошибки валидации при незаполнениии поля CVC/CVV для типа "Купить в кредит"</br>
-     Карта - 4444 4444 4444 4441; Месяц - 01; Год - 25; Владелец - Bill Gates; CVC -  не_заполнять</br>
-     ОР: Под полем ввода месяца появилось сообщение о необходимости заполнения CVC</br>
-     38. Проверка ошибки валидации при незаполнениии всех полей для типа "Купить"</br>
-     Карта - не_заполнять; Месяц - не_заполнять; Год - не_заполнять; Владелец - не_заполнять; CVC -  не_заполнять</br>
-     ОР: Под каждым полем ввода появилось сообщение о необходимости заполнения CVC</br>
-     39. Проверка ошибки валидации при незаполнениии всех полей для типа "Купить в кредит"</br>
-     Карта - не_заполнять; Месяц - не_заполнять; Год - не_заполнять; Владелец - не_заполнять; CVC -  не_заполнять</br>
-     ОР: Под каждым полем ввода появилось сообщение о необходимости заполнения CVC</br>
-     */
+        BasePage basePage = new BasePage();
+        basePage
+                .clickBuyBtn()
+                .fillCardInfo(approvedCardNumber, cardMonthValid, cardYearValid, "", cardCvc)
+                .clickContinueBtn()
+                .checkUnfilledOwnerNotification();
+    }
+
+    @Test
+    void buyWithCredit_checkInvalidNameNotification_unfilledOwner() {
+        // 33. "Купить в кредит": Проверка ошибки валидации при незаполнениии имени владельца крты
+        String approvedCardNumber = DataHelper.getApprovedCardNumber();
+        String cardMonthValid = DataHelper.getCurrentMonth();
+        String cardYearValid = DataHelper.getCurrYearPlus(1);
+        String cardCvc = DataHelper.getCardCvcValid();
+
+        BasePage basePage = new BasePage();
+        basePage
+                .clickBuyWithCreditBtn()
+                .fillCardInfo(approvedCardNumber, cardMonthValid, cardYearValid, "", cardCvc)
+                .clickContinueBtn()
+                .checkUnfilledOwnerNotification();
+    }
+
+    @Test
+    void buy_checkInvalidNameNotification_nameWithoutSpace() {
+        // 34. "Купить": Проверка ошибки валидации при вводе имени владельца крты без пробела
+        String approvedCardNumber = DataHelper.getApprovedCardNumber();
+        String cardMonthValid = DataHelper.getCurrentMonth();
+        String cardYearValid = DataHelper.getCurrYearPlus(1);
+        String cardOwner = DataHelper.generateNameWithoutSpace();
+        String cardCvc = DataHelper.getCardCvcValid();
+
+        BasePage basePage = new BasePage();
+        basePage
+                .clickBuyBtn()
+                .fillCardInfo(approvedCardNumber, cardMonthValid, cardYearValid, cardOwner, cardCvc)
+                .clickContinueBtn()
+                .checkWrongFormatOwnerNotification();
+    }
+
+    @Test
+    void buyWithCredit_checkInvalidNameNotification_nameWithoutSpace() {
+        // 35. "Купить в кредит": Проверка ошибки валидации при вводе имени владельца крты без пробела
+        String approvedCardNumber = DataHelper.getApprovedCardNumber();
+        String cardMonthValid = DataHelper.getCurrentMonth();
+        String cardYearValid = DataHelper.getCurrYearPlus(1);
+        String cardOwner = DataHelper.generateNameWithoutSpace();
+        String cardCvc = DataHelper.getCardCvcValid();
+
+        BasePage basePage = new BasePage();
+        basePage
+                .clickBuyWithCreditBtn()
+                .fillCardInfo(approvedCardNumber, cardMonthValid, cardYearValid, cardOwner, cardCvc)
+                .clickContinueBtn()
+                .checkWrongFormatOwnerNotification();
+    }
 
 
+    @Test
+    void buy_checkInvalidCvcNotification_shortCVC() {
+        // 36. "Купить": Проверка ошибки валидации при вводе 1-2 цифр в поле CVC/CVV
+        String approvedCardNumber = DataHelper.getApprovedCardNumber();
+        String cardMonthValid = DataHelper.getCurrentMonth();
+        String cardYearValid = DataHelper.getCurrYearPlus(1);
+        String cardOwner = DataHelper.generateName();
+        String cardCvc = DataHelper.getCardCvcInvalid();
 
+        BasePage basePage = new BasePage();
+        basePage
+                .clickBuyBtn()
+                .fillCardInfo(approvedCardNumber, cardMonthValid, cardYearValid, cardOwner, cardCvc)
+                .clickContinueBtn()
+                .checkWrongFormatCvcNotification();
+    }
+
+    @Test
+    void buyWithCredit_checkInvalidCvcNotification_shortCVC() {
+        // 37. "Купить в кредит": Проверка ошибки валидации при вводе 1-2 цифр в поле CVC/CVV
+        String approvedCardNumber = DataHelper.getApprovedCardNumber();
+        String cardMonthValid = DataHelper.getCurrentMonth();
+        String cardYearValid = DataHelper.getCurrYearPlus(1);
+        String cardOwner = DataHelper.generateName();
+        String cardCvc = DataHelper.getCardCvcInvalid();
+
+        BasePage basePage = new BasePage();
+        basePage
+                .clickBuyWithCreditBtn()
+                .fillCardInfo(approvedCardNumber, cardMonthValid, cardYearValid, cardOwner, cardCvc)
+                .clickContinueBtn()
+                .checkWrongFormatCvcNotification();
+    }
+
+    @Test
+    void buy_checkInvalidCvcNotification_unfilledCVC() {
+        // 38. "Купить": Проверка ошибки валидации при незаполнениии поля CVC/CVV
+        String approvedCardNumber = DataHelper.getApprovedCardNumber();
+        String cardMonthValid = DataHelper.getCurrentMonth();
+        String cardYearValid = DataHelper.getCurrYearPlus(1);
+        String cardOwner = DataHelper.generateName();
+
+        BasePage basePage = new BasePage();
+        basePage
+                .clickBuyBtn()
+                .fillCardInfo(approvedCardNumber, cardMonthValid, cardYearValid, cardOwner, "")
+                .clickContinueBtn()
+                .checkUnfilledCvcNotification();
+    }
+
+    @Test
+    void buyWithCredit_checkInvalidCvcNotification_unfilledCVC() {
+        // 39. "Купить в кредит": Проверка ошибки валидации при незаполнениии поля CVC/CVV
+        String approvedCardNumber = DataHelper.getApprovedCardNumber();
+        String cardMonthValid = DataHelper.getCurrentMonth();
+        String cardYearValid = DataHelper.getCurrYearPlus(1);
+        String cardOwner = DataHelper.generateName();
+
+        BasePage basePage = new BasePage();
+        basePage
+                .clickBuyWithCreditBtn()
+                .fillCardInfo(approvedCardNumber, cardMonthValid, cardYearValid, cardOwner, "")
+                .clickContinueBtn()
+                .checkUnfilledCvcNotification();
+    }
+
+    @Test
+    void buy_checkInvalidCvcNotification_unfilledAllFields() {
+        // 40. "Купить": Проверка ошибки валидации при незаполнениии всех полей
+        BasePage basePage = new BasePage();
+        basePage
+                .clickBuyBtn()
+                .fillCardInfo("", "", "", "", "")
+                .clickContinueBtn()
+                .checkUnfilledCardNotification()
+                .checkUnfilledMonthNotification()
+                .checkUnfilledYearNotification()
+                .checkUnfilledOwnerNotification()
+                .checkUnfilledCvcNotification();
+    }
+
+    @Test
+    void buyWithCredit_checkInvalidCvcNotification_unfilledAllFields() {
+        // 41. "Купить в кредит": Проверка ошибки валидации при незаполнениии всех полей
+        BasePage basePage = new BasePage();
+        basePage
+                .clickBuyWithCreditBtn()
+                .fillCardInfo("", "", "", "", "")
+                .clickContinueBtn()
+                .checkUnfilledCardNotification()
+                .checkUnfilledMonthNotification()
+                .checkUnfilledYearNotification()
+                .checkUnfilledOwnerNotification()
+                .checkUnfilledCvcNotification();
+    }
 }

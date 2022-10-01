@@ -51,6 +51,7 @@ public class DataHelper {
         int cardMonthInvalid = (int) ThreadLocalRandom.current().nextDouble(13, 99);
         return String.valueOf(cardMonthInvalid);
     }
+
     // Невалидный месяц из 1 цифры
     public static String getCardMonthInvalidSmall() {
         int cardMonthInvalid = (int) ThreadLocalRandom.current().nextDouble(0, 9);

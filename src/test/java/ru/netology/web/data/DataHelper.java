@@ -41,6 +41,11 @@ public class DataHelper {
         return LocalDate.now().format(DateTimeFormatter.ofPattern("MM"));
     }
 
+    // Валидный формат: предыдущий месяц
+    public static String getCurrentMonthMinusOne() {
+        return LocalDate.now().minusMonths(1).format(DateTimeFormatter.ofPattern("MM"));
+    }
+
     // Невалидный месяц из 2 цифр (>12)
     public static String getCardMonthInvalidLarge() {
         int cardMonthInvalid = (int) ThreadLocalRandom.current().nextDouble(13, 99);
@@ -73,6 +78,13 @@ public class DataHelper {
         return faker.name().firstName() + " " + faker.name().lastName();
     }
 
+    // Невалидное имя на латинице (без пробела)
+    public static String generateNameWithoutSpace() {
+        Faker faker = new Faker();
+        return (faker.name().firstName() + faker.name().lastName())
+                .replaceAll(" ", "");
+    }
+
     // Невалидное имя на кириллице
     public static String generateNameRus() {
         Faker faker = new Faker(new Locale("ru"));
@@ -80,7 +92,7 @@ public class DataHelper {
     }
 
     // Невалидное имя из спецсимволов
-    public static String generateNameInvalid() {
+    public static String getNameWithSpecChars() {
         return invalidNameWithSpecChar;
     }
 

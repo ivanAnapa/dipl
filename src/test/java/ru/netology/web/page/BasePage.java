@@ -144,15 +144,22 @@ public class BasePage {
         return this;
     }
 
+
     // Сообщение о неправильном вводе месяца (1 цифра)
-    public BasePage checkWrongMonthNotificationSmall() {
+    public BasePage checkWrongFormatMonthNotification() {
         wrongMonthNotification.shouldBe(text("Неверный формат"), visible);
         return this;
     }
 
-    // Сообщение о неправильном вводе месяца (месяц > 12)
-    public BasePage checkWrongMonthNotificationLarge() {
+    // Сообщение о неправильном вводе месяца (месяц >12 или "00")
+    public BasePage checkWrongMonthNotification() {
         wrongMonthNotification.shouldBe(text("Неверно указан срок действия карты"), visible);
+        return this;
+    }
+
+    // Сообщение о незаполненном месяце
+    public BasePage checkUnfilledMonthNotification() {
+        wrongMonthNotification.shouldBe(text("Поле обязательно для заполнения"), visible);
         return this;
     }
 
@@ -164,15 +171,27 @@ public class BasePage {
     }
 
     // Сообщение о неправильном вводе года (срок действия карты на 6 лет больше текущего года)
-    public BasePage checkWrongYearNotificationInvalid() {
+    public BasePage checkWrongYearNotification() {
         wrongYearNotification.shouldBe(text("Неверно указан срок действия карты"), visible);
+        return this;
+    }
+
+    // Сообщение о незаполненном поле "год"
+    public BasePage checkUnfilledYearNotification() {
+        wrongYearNotification.shouldBe(text("Поле обязательно для заполнения"), visible);
         return this;
     }
 
 
     // Сообщение о незаполненном имени владельца карты
-    public BasePage checkWrongOwnerNotification() {
+    public BasePage checkUnfilledOwnerNotification() {
         wrongOwnerNotification.shouldBe(text("Поле обязательно для заполнения"), visible);
+        return this;
+    }
+
+    // Сообщение о неверном формате в поле "Владелец"
+    public BasePage checkWrongFormatOwnerNotification() {
+        wrongOwnerNotification.shouldBe(text("Неверный формат"), visible);
         return this;
     }
 

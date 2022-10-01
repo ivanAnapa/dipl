@@ -117,5 +117,8 @@ public class DataHelper {
         return String.valueOf(currYear + plus);
     }
 
+    // ************************************ Данные карты для API ************************************
+
+
 
 }

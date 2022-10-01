@@ -26,7 +26,6 @@ public class BasePage {
     private final SelenideElement buyTripHeader = $x("//h3[text()='Оплата по карте']");
     private final SelenideElement buyWithCreditTripHeader = $x("//h3[text()='Кредит по данным карты']");
 
-
     // ******************************************** Кнопки  ********************************************
     private final SelenideElement buyBtn = $x("//button[.//span[text()='Купить']]");
     private final SelenideElement buyWithCreditBtn = $x("//button[.//span[text()='Купить в кредит']]");
@@ -55,16 +54,20 @@ public class BasePage {
         pageTitle.shouldBe(text("Путешествие дня"), visible);
     }
 
+    // ************************************ Действия ************************************
+    // Кликнуть "Купить"
     public BasePage clickBuyBtn() {
         buyBtn.shouldBe(visible).click();
         return this;
     }
 
+    // Кликнуть "Купить в кредит"
     public BasePage clickBuyWithCreditBtn() {
         buyWithCreditBtn.shouldBe(visible).click();
         return this;
     }
 
+    // Заполнить все поля ввода
     public BasePage fillCardInfo(String cardNumber, String cardMonth, String cardYear, String cardOwner, String cvc) {
         cardNumberInput.setValue(cardNumber);
         cardMonthInput.setValue(cardMonth);
@@ -74,6 +77,7 @@ public class BasePage {
         return this;
     }
 
+    // Кликнуть "Продолжить"
     public BasePage clickContinueBtn() {
         continueBtn.click();
         return this;
@@ -114,6 +118,7 @@ public class BasePage {
         validateInputFieldsVisibility();
     }
 
+    // "Купить в кредит": Проверка видимости заголовка и полей ввода
     public void validateFieldsForBuyWithCredit() {
         buyWithCreditTripHeader.shouldBe(visible);
         validateInputFieldsVisibility();
@@ -139,6 +144,7 @@ public class BasePage {
         return this;
     }
 
+    // Сообщение о незаполненном номере карты
     public BasePage checkUnfilledCardNotification() {
         wrongCardNotification.shouldBe(text("Поле обязательно для заполнения"), visible);
         return this;

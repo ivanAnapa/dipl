@@ -290,7 +290,7 @@ class BuyTripTest {
     void buy_checkInvalidYearNotification_currentYearPlus6() {
         // 18. "Купить": Проверка ошибки валидации при вводе года "текущий + 6 лет"
         String approvedCardNumber = DataHelper.getApprovedCardNumber();
-        String cardMonthInvalid = DataHelper.getCurrentMonth();
+        String cardMonth = DataHelper.getCurrentMonth();
         String cardYearValid = DataHelper.getCurrYearPlus(6);
         String cardOwner = DataHelper.generateName();
         String cardCvc = DataHelper.getCardCvcValid();
@@ -298,7 +298,7 @@ class BuyTripTest {
         BasePage basePage = new BasePage();
         basePage
                 .clickBuyBtn()
-                .fillCardInfo(approvedCardNumber, cardMonthInvalid, cardYearValid, cardOwner, cardCvc)
+                .fillCardInfo(approvedCardNumber, cardMonth, cardYearValid, cardOwner, cardCvc)
                 .clickContinueBtn()
                 .checkWrongYearNotification();
     }
@@ -307,7 +307,7 @@ class BuyTripTest {
     void buyWithCredit_checkInvalidYearNotification_currentYearPlus6() {
         // 19. "Купить в кредит": Проверка ошибки валидации при вводе года "текущий + 6 лет"
         String approvedCardNumber = DataHelper.getApprovedCardNumber();
-        String cardMonthInvalid = DataHelper.getCurrentMonth();
+        String cardMonth = DataHelper.getCurrentMonth();
         String cardYearValid = DataHelper.getCurrYearPlus(6);
         String cardOwner = DataHelper.generateName();
         String cardCvc = DataHelper.getCardCvcValid();
@@ -315,7 +315,7 @@ class BuyTripTest {
         BasePage basePage = new BasePage();
         basePage
                 .clickBuyWithCreditBtn()
-                .fillCardInfo(approvedCardNumber, cardMonthInvalid, cardYearValid, cardOwner, cardCvc)
+                .fillCardInfo(approvedCardNumber, cardMonth, cardYearValid, cardOwner, cardCvc)
                 .clickContinueBtn()
                 .checkWrongYearNotification();
     }
@@ -324,7 +324,7 @@ class BuyTripTest {
     void buy_checkInvalidYearNotification_currentYearMinus1() {
         // 20. "Купить": Проверка ошибки валидации при вводе года "текущий - 1 год"
         String approvedCardNumber = DataHelper.getApprovedCardNumber();
-        String cardMonthInvalid = DataHelper.getCurrentMonth();
+        String cardMonth = DataHelper.getCurrentMonth();
         String cardYear = DataHelper.getCurrYearMinus(1);
         String cardOwner = DataHelper.generateName();
         String cardCvc = DataHelper.getCardCvcValid();
@@ -332,7 +332,7 @@ class BuyTripTest {
         BasePage basePage = new BasePage();
         basePage
                 .clickBuyBtn()
-                .fillCardInfo(approvedCardNumber, cardMonthInvalid, cardYear, cardOwner, cardCvc)
+                .fillCardInfo(approvedCardNumber, cardMonth, cardYear, cardOwner, cardCvc)
                 .clickContinueBtn()
                 .checkWrongYearNotificationOld();
     }
@@ -341,7 +341,7 @@ class BuyTripTest {
     void buyWithCredit_checkInvalidYearNotification_currentYearMinus1() {
         // 21. "Купить в кредит": Проверка ошибки валидации при вводе года "текущий - 1 год"
         String approvedCardNumber = DataHelper.getApprovedCardNumber();
-        String cardMonthInvalid = DataHelper.getCurrentMonth();
+        String cardMonth = DataHelper.getCurrentMonth();
         String cardYear = DataHelper.getCurrYearMinus(1);
         String cardOwner = DataHelper.generateName();
         String cardCvc = DataHelper.getCardCvcValid();
@@ -349,7 +349,7 @@ class BuyTripTest {
         BasePage basePage = new BasePage();
         basePage
                 .clickBuyWithCreditBtn()
-                .fillCardInfo(approvedCardNumber, cardMonthInvalid, cardYear, cardOwner, cardCvc)
+                .fillCardInfo(approvedCardNumber, cardMonth, cardYear, cardOwner, cardCvc)
                 .clickContinueBtn()
                 .checkWrongYearNotificationOld();
     }

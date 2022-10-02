@@ -4,7 +4,10 @@ import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
 import ru.netology.web.data.DataHelper;
+import ru.netology.web.data.DbConnectionHelper;
 import ru.netology.web.page.BasePage;
+
+import java.sql.SQLException;
 
 import static com.codeborne.selenide.Selenide.open;
 
@@ -21,6 +24,10 @@ class BuyTripTest {
         SelenideLogger.removeListener("allure");
     }
 
+    @BeforeEach
+    void setUpSutUrl() {
+        open(System.getProperty("sut.url"));
+    }
 
     @BeforeEach
     void setup() {
@@ -53,7 +60,7 @@ class BuyTripTest {
     }
 
     @Test
-    void buy_validData_approvedCard() {
+    void buy_validData_approvedCard() throws SQLException {
         // 4. "Купить" тур с одобренной картой и валидными данными
         String approvedCardNumber = DataHelper.getApprovedCardNumber();
         String cardMonthValid = DataHelper.getCurrentMonth();
@@ -67,6 +74,12 @@ class BuyTripTest {
                 .fillCardInfo(approvedCardNumber, cardMonthValid, cardYearValid, cardOwner, cardCvc)
                 .clickContinueBtn()
                 .checkSuccessResult();
+
+        var state = DbConnectionHelper.getConnection();
+        state.nativeSQL("");
+        System.out.println("");
+
+
     }
 
     @Test

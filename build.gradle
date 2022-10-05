@@ -38,14 +38,13 @@ dependencies {
 test {
     useJUnitPlatform()
     systemProperty 'selenide.headless', System.getProperty('selenide.headless')
-    // Сюда за настройками заглядывает DbConnectionHelper (урл, лог, пар)
-    // Вроде так можно: вынести сюда настройки и переключать БД при необходимости (раскомментировать нужную db.url)
-    systemProperty 'db.url', System.getProperty('db.url', 'jdbc:mysql://localhost:3306/app')
-    //systemProperty 'db.url', System.getProperty('db.url', 'jdbc:postgresql://localhost:5432/app')
-
+    systemProperty 'db.url', System.getProperty('db.url')
+    // Переключать БД при необходимости (раскомментировать нужную db.url)
+    //systemProperty 'db.url', System.getProperty('db.url', 'jdbc:mysql://localhost:3306/app')
+    systemProperty 'db.url', System.getProperty('db.url', 'jdbc:postgresql://localhost:5432/app')
+    // Сюда за настройками заглядывает DbConnectionHelper (урл приложения, логин БД, пароль БД)
     systemProperty 'db.user', System.getProperty('db.user', 'app')
     systemProperty 'db.password', System.getProperty('db.password', 'pass')
-
     systemProperty 'sut.url', System.getProperty('sut.url', 'http://localhost:8080')
 
 }

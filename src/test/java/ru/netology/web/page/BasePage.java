@@ -2,7 +2,7 @@ package ru.netology.web.page;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import ru.netology.web.data.DataHelper;
+import ru.netology.web.data.common.DataHelper;
 
 import java.time.Duration;
 
@@ -126,14 +126,14 @@ public class BasePage {
 
     // Сообщение об успешной покупке
     public BasePage checkSuccessResult() {
-        operationResultTitle.findBy(text("Успешно")).shouldBe(visible, Duration.ofSeconds(10));
+        operationResultTitle.findBy(text("Успешно")).shouldBe(visible, Duration.ofSeconds(15));
         operationResultContent.findBy(text("Операция одобрена Банком.")).shouldBe(visible);
         return this;
     }
 
     // Сообщение об отказе в покупке
     public BasePage checkDeclinedResult() {
-        operationResultTitle.findBy(text("Ошибка")).shouldBe(visible, Duration.ofSeconds(10));
+        operationResultTitle.findBy(text("Ошибка")).shouldBe(visible, Duration.ofSeconds(15));
         operationResultContent.findBy(text("Ошибка! Банк отказал в проведении операции.")).shouldBe(visible);
         return this;
     }

@@ -1,11 +1,10 @@
 version: '3.7'
 services:
-  node-app:
-    build: gate-simulator
-    image: gate-simulator:1.0
+  nodejs:
+    build: ./gate-simulator
     ports:
-      - '9999:9999'
-  mysqldb:
+      - "9999:9999"
+  mysql:
     image: mysql:latest
     ports:
       - '3306:3306'
@@ -19,6 +18,7 @@ services:
     ports:
       - '5432:5432'
     environment:
-      POSTGRES_DB: app
-      POSTGRES_USER: app
-      POSTGRES_PASSWORD: pass
+      - POSTGRES_RANDOM_ROOT_PASSWORD=yes
+      - POSTGRES_DB=app
+      - POSTGRES_USER=app
+      - POSTGRES_PASSWORD=pass

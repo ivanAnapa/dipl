@@ -1,4 +1,4 @@
-package ru.netology.web.data;
+package ru.netology.web.data.common;
 
 import com.github.javafaker.Faker;
 
@@ -117,8 +117,10 @@ public class DataHelper {
         return String.valueOf(currYear + plus);
     }
 
-    // ************************************ Данные карты для API ************************************
-
-
+    // Получить текущую дату в формате БД
+    public static String getCurrentDateInDbFormat() {
+        //return LocalDate.now().format(DateTimeFormatter.ofPattern("d MMM yyyy"));
+        return LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    }
 
 }

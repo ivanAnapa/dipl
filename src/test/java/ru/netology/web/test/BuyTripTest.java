@@ -3,13 +3,15 @@ package ru.netology.web.test;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
-import ru.netology.web.data.DataHelper;
-import ru.netology.web.data.DbConnectionHelper;
+import ru.netology.web.data.common.DataHelper;
+import ru.netology.web.data.db.DbConnectionHelper;
 import ru.netology.web.page.BasePage;
 
-import java.sql.SQLException;
-
 import static com.codeborne.selenide.Selenide.open;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static ru.netology.web.data.common.DataHelper.getCurrentDateInDbFormat;
+import static ru.netology.web.data.db.DbConnectionHelper.*;
 
 class BuyTripTest {
 
@@ -29,9 +31,9 @@ class BuyTripTest {
         open(System.getProperty("sut.url"));
     }
 
-    @BeforeEach
-    void setup() {
-        open("http://localhost:8080");
+    @AfterEach
+    void cleanDataBases() {
+        DbConnectionHelper.deletePrevOrders();
     }
 
     @Test
@@ -60,7 +62,7 @@ class BuyTripTest {
     }
 
     @Test
-    void buy_validData_approvedCard() throws SQLException {
+    void buy_validData_approvedCard() {
         // 4. "Купить" тур с одобренной картой и валидными данными
         String approvedCardNumber = DataHelper.getApprovedCardNumber();
         String cardMonthValid = DataHelper.getCurrentMonth();
@@ -75,11 +77,17 @@ class BuyTripTest {
                 .clickContinueBtn()
                 .checkSuccessResult();
 
-        var state = DbConnectionHelper.getConnection();
-        state.nativeSQL("");
-        System.out.println("");
+        // ****************** Проверки в БД - payment_entity ******************
+        // Проверить статус в БД
+        assertEquals("APPROVED", getStatusFromPaymentEntity());
+        // Проверить стоимость в БД (насколько я понял, стоимость в БД указана в копейках?)
+        assertEquals("4500000", getAmountFromPaymentEntity());
+        // Проверить, что дата покупки совпадает с текущей (гггг-ММ-дд)
+        assertEquals(getCurrentDateInDbFormat(), getPurchaseDateFromPaymentEntity());
 
-
+        // ****************** Проверки в БД - order_entity ******************
+        // Проверить, что дата покупки совпадает с текущей (гггг-ММ-дд)
+        assertEquals(getCurrentDateInDbFormat(), getPurchaseDateFromOrderEntity());
     }
 
     @Test
@@ -97,6 +105,19 @@ class BuyTripTest {
                 .fillCardInfo(approvedCardNumber, cardMonthValid, cardYearValid, cardOwner, cardCvc)
                 .clickContinueBtn()
                 .checkSuccessResult();
+
+        // ****************** Проверки в БД - credit_request_entity ******************
+        // Проверить статус в БД
+        assertEquals("APPROVED", getStatusFromCreditRequestEntity());
+        // Проверить, что дата покупки совпадает с текущей (гггг-ММ-дд)
+        assertEquals(getCurrentDateInDbFormat(), getPurchaseDateFromCreditRequestEntity());
+        // Проверить ИД банка в БД (тут какой-то хеш, придумал проверку только на NotNull)
+        assertNotNull(getBankIdFromCreditRequestEntity());
+
+        // ****************** Проверки в БД - order_entity ******************
+        // Проверить, что дата покупки совпадает с текущей (гггг-ММ-дд)
+        assertEquals(getCurrentDateInDbFormat(), getPurchaseDateFromOrderEntity());
+
     }
 
     @Test

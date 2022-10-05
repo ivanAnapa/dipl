@@ -6,11 +6,11 @@ import lombok.val;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import ru.netology.web.data.DataHelper;
+import ru.netology.web.data.common.DataHelper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static ru.netology.web.data.RequestHelper.buyReq;
-import static ru.netology.web.data.RequestHelper.buyWithCreditReq;
+import static ru.netology.web.data.api.RequestHelper.buyReq;
+import static ru.netology.web.data.api.RequestHelper.buyWithCreditReq;
 
 public class ApiTest {
 

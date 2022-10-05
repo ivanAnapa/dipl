@@ -1,6 +1,6 @@
 # Инструкция по настройке и запуску на ОС Windows
 ## 1. Клонировать проект
-https://github.com/ivanAnapa/dipl</br>
+https://github.com/ivanAnapa/dipl.git</br>
 ## 2. Установить Docker desktop
 https://docs.docker.com/desktop/install/windows-install/</br>
 ## 3. Ручные настройки для переключения БД
